@@ -156,7 +156,7 @@ class Deep_Q_Learner(object):
 
         td_target = torch.from_numpy(td_target).to(device)
         action_idx = torch.from_numpy(action_batch).to(device)
-        td_error = torch.nn.functional.mse_loss( self.Q(obs_batch).gather(1, action_idx.view(-1, 1)),
+        td_error = torch.nn.functional.mse_loss( self.Q(obs_batch).gather(1, action_idx.long().view(-1, 1)),
                                                        td_target.float().unsqueeze(1))
 
         self.Q_optimizer.zero_grad()
